@@ -1,4 +1,4 @@
-// var was used to make it global
+let sliderValue 
 var looped = false;
 let slider;
 let plus;
@@ -37,12 +37,15 @@ window.addEventListener("beforeinstallprompt", (e) => {
     });
   });
 var color6 
+//localstorage does not support anything other than strings
 colour = localStorage.getItem("colour")
 const isMobile = /iPhone|iPod|Android/i.test(navigator.userAgent)
 var state = 'colors'
 if(colour==undefined){
     var colour = 'black';
     
+}else{
+    colour = window.localStorage.getItem('colour')
 }
 if(localStorage.getItem("weight")==null){
     weight = "10";
@@ -50,15 +53,21 @@ if(localStorage.getItem("weight")==null){
 }else{
     weight = localStorage.getItem("weight")
 }
+if(localStorage.getItem("brushType")==null){
+    brushType = "10";
+    console.log("h")
+}else{
+    brushType = localStorage.getItem("brushType")
+}
 console.log(colour,localStorage.getItem("colour"))
 
 const vh = document.documentElement.scrollHeight/100
 const vw = document.documentElement.scrollWidth/100
-var color1 = 'red'
-var color2 = 'orange'
-var color3 = 'yellow'
-var color4 = 'green'
-var color5 = 'blue'
+const color1 = 'red'
+const color2 = 'orange'
+const color3 = 'yellow'
+const color4 = 'green'
+const color5 = 'blue'
 
 
 function preload(){
@@ -68,16 +77,17 @@ function preload(){
 }
 function setup(){
     canvas = createCanvas(windowWidth, windowHeight)
-    
-    
+    slider  = createSlider(1, 25, 10, 0)
+    slider.position(85*vw, 10*vh);
+    slider.style('width', '10vw');
 }
 
 function draw(){
     noStroke()
-    
+    slider.style('opacity',0)
     textSize(22)
     textFont('Arial')
-    
+    sliderValue = slider.value()
     if(!isMobile){
         fill('#185abd')
         rect(0, 0, 100*vw, 7.5*vh)
@@ -169,8 +179,8 @@ function draw(){
             strokeWeight(0)
             text('Help', 25*vw, 6*vh)
             text('Brush', 63*vw, 6*vh)
-            image(eraser, 57*vw, 8*vh, 4*vh, 4*vh)
-            if(mouseIsPressed&&mouseX>56*vw&&mouseX<62*vw&&mouseY>7*vh&&mouseY<13*vh){
+            image(eraser, 59*vw, 8*vh, 4*vh, 4*vh)
+            if(mouseIsPressed&&mouseX>58*vw&&mouseX<64*vw&&mouseY>7*vh&&mouseY<13*vh){
                 colour = 'white'
                 
             }
@@ -207,8 +217,8 @@ function draw(){
             rect(63*vw, 3*vh, 3.5*vw, 4*vh)
             circle(63*vw,5*vh,4*vh)
             circle(66.5*vw,5*vh,4*vh)
-            image(plus, 47*vw, 8.5*vh, 5*vh, 5*vh)
-            image(minus, 40.5*vw, 8.5*vh, 5*vh, 5*vh)
+            image(plus, 45*vw+2*vh+3*vh, 8.5*vh, 5*vh, 5*vh)
+            image(minus, 45*vw-2*vw-3*vw, 8.5*vh, 5*vh, 5*vh)
             fill('black')
             text("Thickness", 33*vw, 10*vh, 36.5*vw, 10*vh)
             text("Type", 53*vw, 10*vh, 55*vw, 10*vh)
@@ -219,6 +229,7 @@ function draw(){
             strokeWeight(2)
             triangle(24*vw, 9*vh, 22.5*vw, 13.5*vh, 25.5*vw, 13.5*vh)
             circle(20*vw,11.3*vh,5*vh)
+            slider.style('opacity',1)
             stroke(transparent)
             fill('black')
             text("Shape", 12*vw, 10*vh, 15*vw, 10*vh)
@@ -227,14 +238,14 @@ function draw(){
                 stroke('darkblue')
                 strokeWeight(2)
             }
-            rect(59.8*vw, 9.2*vh, 5*vw, 4*vh)
+            rect(59.8*vw, 9.2*vh, 6*vw, 4*vh)
             stroke(transparent)
             fill(transparent)
             if(brushType==='random'){
                 stroke('darkblue')
                 strokeWeight(2)
             }
-            rect(67.8*vw, 9.2*vh, 5.4*vw, 4*vh)
+            rect(67.8*vw, 9.2*vh, 5.8*vw, 4*vh)
             stroke(transparent)
             if(mouseIsPressed&&mouseX>59.8*vw&&mouseX<65*vw&&mouseY>9*vh&&mouseY<14*vh){
                 brushType = 'normal'
@@ -244,17 +255,20 @@ function draw(){
             fill('black')
             text("Normal", 60*vw, 10*vh, 75*vw, 10*vh)
             text("Random", 67.8*vw, 10*vh,80*vw,10*vh)
+            text("Randomness", 75*vw, 10*vh, 80*vw, 15*vh)
             fill('#185abd')
             text('Brush', 63*vw, 6*vh)
         }
-    }else{
-        alert('This app is not suitable on mobile')
+        //not make the strokeweight too big
+        if(weight>25){
+            weight = 25
+        }
     }
     
     
     
     
-    //localstorage does not support anything other than strings
+    
     
     if(mouseIsPressed&&mouseY>17*vh){
         if(brushType!='random'){
@@ -277,10 +291,10 @@ function draw(){
             }
         }else if(brushType==='random'){
             
-            for(let iter = 0;iter<Math.floor(Math.random()*20);iter++){
+            for(let iter = 0;iter<Math.floor(Math.random()*sliderValue);iter++){
                 fill(colour)
                 strokeWeight(weight)
-                circle(mouseX+Math.floor(Math.random()*10),mouseY+Math.floor(Math.random()*10),2)
+                circle(mouseX+Math.floor(Math.random()*sliderValue),mouseY+Math.floor(Math.random()*sliderValue),2)
             }
         }
     }
@@ -288,6 +302,7 @@ function draw(){
     
     window.localStorage.setItem("weight",weight)
     window.localStorage.setItem("colour",colour)
+    window.localStorage.setItem("brushType",brushType)
     console.log(localStorage.getItem("colour"))
     
     
@@ -382,6 +397,7 @@ function keyPressed(){
         Your current stroke weight is ${weight}
         Your current brush shape is ${brushShape}
         Your current brush color is ${colour}
+        Your current randomness of the random brush is ${sliderValue}
         `)
     }
 }    

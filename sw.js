@@ -5,4 +5,3 @@ importScripts(
     ({request}) => request.destination === 'image',
     new workbox.strategies.CacheFirst()
   );
-  
