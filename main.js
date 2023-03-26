@@ -1,4 +1,5 @@
 let sliderValue 
+
 var looped = false;
 let slider;
 let plus;
