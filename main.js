@@ -1,4 +1,9 @@
+// IMPORTANT: remeber to clear your browser cache if a new commit is added as before 3 pm on 30 march it will cache no matter what
 let sliderValue 
+
+
+
+
 
 var looped = false;
 let slider;
@@ -55,7 +60,7 @@ if(localStorage.getItem("weight")==null){
     weight = localStorage.getItem("weight")
 }
 if(localStorage.getItem("brushType")==null){
-    brushType = "10";
+    brushType = "normal";
     console.log("h")
 }else{
     brushType = localStorage.getItem("brushType")
@@ -79,8 +84,9 @@ function preload(){
 function setup(){
     canvas = createCanvas(windowWidth, windowHeight)
     slider  = createSlider(1, 25, 10, 0)
-    slider.position(85*vw, 10*vh);
+    slider.position(90*vw, 10*vh);
     slider.style('width', '10vw');
+    
 }
 
 function draw(){
@@ -89,6 +95,7 @@ function draw(){
     textSize(22)
     textFont('Arial')
     sliderValue = slider.value()
+    
     if(!isMobile){
         fill('#185abd')
         rect(0, 0, 100*vw, 7.5*vh)
@@ -122,6 +129,7 @@ function draw(){
 
         if(state==='colors'){
             fill(color1)
+            
             stroke(transparent)
             strokeWeight(0)
             if(colour===color1){
@@ -169,13 +177,13 @@ function draw(){
             }
             fill(color6)
             circle(55*vw,10*vh,4*vh)
-            if(mouseIsPressed&&mouseX>23*vw&&mouseX<32*vw&&mouseY>6*vh&&mouseY<12*vh){
+            if(mouseIsPressed&&mouseX>20*vw&&mouseX<30*vw&&mouseY>6*vh&&mouseY<12*vh){
                 fill('white')
                 rect(0, 15*vh, 100*vw, 85*vh)
             }
             fill('black')
             strokeWeight(0)
-            text("Clear canvas", 24*vw, 9*vh, 28*vw, 9*vh)
+            text("Clear canvas", 20*vw, 9*vh, 28*vw, 9*vh)
             fill('white')
             strokeWeight(0)
             text('Help', 25*vw, 6*vh)
@@ -209,7 +217,7 @@ function draw(){
             fill('white')
             stroke('black')
             strokeWeight(weight)
-            circle(45*vw,11*vh,4*vh)
+            circle(46*vw,11*vh,4*vh)
             fill('white')
             stroke(transparent)
             strokeWeight(1)
@@ -221,19 +229,19 @@ function draw(){
             image(plus, 45*vw+2*vh+3*vh, 8.5*vh, 5*vh, 5*vh)
             image(minus, 45*vw-2*vw-3*vw, 8.5*vh, 5*vh, 5*vh)
             fill('black')
-            text("Thickness", 33*vw, 10*vh, 36.5*vw, 10*vh)
+            text("Thickness", 30*vw, 10*vh, 34.5*vw, 10*vh)
             text("Type", 53*vw, 10*vh, 55*vw, 10*vh)
             fill('white')
             stroke("black")
             strokeWeight(10)
-            line(28*vw, 11*vh, 30*vw, 11*vh)
+            line(26*vw, 11*vh, 27.5*vw, 11*vh)
             strokeWeight(2)
-            triangle(24*vw, 9*vh, 22.5*vw, 13.5*vh, 25.5*vw, 13.5*vh)
-            circle(20*vw,11.3*vh,5*vh)
+            triangle(22*vw, 9*vh, 20.5*vw, 13.5*vh, 23.5*vw, 13.5*vh)
+            circle(18*vw,11.3*vh,5*vh)
             slider.style('opacity',1)
             stroke(transparent)
             fill('black')
-            text("Shape", 12*vw, 10*vh, 15*vw, 10*vh)
+            text("Shape", 10*vw, 10*vh, 15*vw, 10*vh)
             fill(transparent)
             if(brushType==='normal'){
                 stroke('darkblue')
@@ -256,7 +264,7 @@ function draw(){
             fill('black')
             text("Normal", 60*vw, 10*vh, 75*vw, 10*vh)
             text("Random", 67.8*vw, 10*vh,80*vw,10*vh)
-            text("Randomness", 75*vw, 10*vh, 80*vw, 15*vh)
+            text("Randomness", 79*vw, 10*vh, 80*vw, 15*vh)
             fill('#185abd')
             text('Brush', 63*vw, 6*vh)
         }
@@ -357,11 +365,11 @@ function mousePressed() {
             weight--
         }
         if(state==='brush'){
-            if(mouseX>22*vw&&mouseX<26*vw&&mouseY>8*vh&&mouseY<14*vh){
+            if(mouseX>20*vw&&mouseX<24*vw&&mouseY>8*vh&&mouseY<14*vh){
                 brushShape='triangle'
-            }else if(mouseX>20*vw-6*vh&&mouseX<20*vw+6*vh&&mouseY>6*vh&&mouseY<17*vh){
+            }else if(mouseX>18*vw-6*vh&&mouseX<18*vw+6*vh&&mouseY>6*vh&&mouseY<17*vh){
                 brushShape='circle'
-            }else if(mouseX>27*vw&&mouseX<31*vw&&mouseY>9*vh&&mouseY<13*vh){
+            }else if(mouseX>25*vw&&mouseX<29*vw&&mouseY>9*vh&&mouseY<13*vh){
                 brushShape='line'
             }
         }

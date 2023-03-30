@@ -5,6 +5,19 @@
 //     ({request}) => request.destination === 'image',
 //     new workbox.strategies.CacheFirst()
 //   );
+if(navigator.onLine){
+  caches.delete('/')
+  caches.delete('/index.html');
+  caches.delete('/main.js')
+  caches.delete('/styles.css')
+  caches.delete("https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.js")
+  caches.delete('/mainfest.json')
+  caches.delete('/sw.js')
+  caches.delete('/eraser.png')
+  caches.delete('/minus_sign.png')
+  caches.delete('/plus_sign.webp')
+  console.log('cleared caches')
+}
 const staticChacheName = 'site-static'
 const assests = [
   '/',
